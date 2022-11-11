@@ -1,0 +1,21 @@
+.login__container{
+    display: flex;
+    justify-content: center;
+    color: white;
+}
+.login{
+    width: 450px;
+    margin-top: 10px;
+    border-radius: 10px;
+    /* background: rgb(2,0,36); */
+/* background: linear-gradient(302deg, rgba(2,0,36,1) 0%, rgba(9,39,121,1) 19%, rgba(0,212,255,1) 100%); */
+}
+.login .loginLink{
+    color: white;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.login .loginLink:hover{
+    border-bottom: 1px solid white;
+}
+

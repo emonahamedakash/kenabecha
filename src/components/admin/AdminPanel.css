@@ -1,0 +1,58 @@
+.adminPanel{
+    display: flex;
+    min-height: 70vh;
+}
+.adminPanel ul {
+    list-style-type: none;
+    margin-top: 5px;
+    flex: 20%;
+}
+.adminPanel ul button{
+    border-radius: 0;
+    width: 135px;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+.adminPanel .adminComponent{
+    flex: 80%;
+}
+
+/* Product part */
+.adminProductContainer{
+
+}
+.adminProductContainer .upperPart{
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+}
+.adminProductContainer .bottomPart{
+}
+.adminProductContainer .bottomPart table{
+    border-collapse: collapse;
+}
+.adminProductContainer .bottomPart table tr:nth-child(even){background-color: #f2f2f2;}
+.adminProductContainer .bottomPart table tr:hover{background-color: #ddd;}
+.adminProductContainer .bottomPart td{
+    border-bottom: 1px solid gray;
+    padding: 10px;
+}
+.adminProductContainer .bottomPart table thead{
+    font-weight: bold;
+}
+.adminProductContainer .bottomPart img{
+    width: 40px;
+    height: 40px;
+}
+    .bottomPart .productTitle{
+        max-width: 440px;
+        font-weight: bold;
+    /* text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+    max-height: 3.6em;
+    line-height: 1.8em; */
+}

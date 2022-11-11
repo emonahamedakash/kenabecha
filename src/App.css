@@ -1,38 +1,92 @@
-.App {
+/* Navigation bar */
+.navigationBar{
+  font-size: 20px;
+  font-weight: 500;
+}
+/* home */
+.product__list{
+    gap: 10px;
+}
+.product__list__title{
   text-align: center;
+  background-color: #ededed;
+  padding: 10px;
+  margin: 15px 0;
+}
+.product__image{
+  right: -12px; 
+  bottom: 4px;
+  height: 220px;
+}
+.product__title{
+  display: block;/* or inline-block */
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+  line-height: 1.8em;
+}
+.product__price{
+  color: red;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+/* Product details */
+.product__details{
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  gap: 25px;
+  margin: 0 auto;
+}
+.product__details__image{
+  width: 500px;
+}
+.product__details .rating{
+  font-size: 20px;
+  color: orangered;
+}
+.product__description{
+  text-align: justify;
+}
+.product__description h3{
+  color: green;
+}
+/* Loader */
+.loader{
+  height: 300px;
+  width: 100%;
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+}
+/* Footer */
+.footer-container{
   color: white;
+  padding: 20px 10px;
+  line-height: 30px;
+  margin-top: 10px;
+}
+.footer-container p{
+  text-align: center;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding: 10px 0;
+}
+.footer{
+  display: flex;
+  justify-content: space-evenly;
+}
+.footer ul{
+  list-style: none;
+}
+.footer__images{
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.footer img{
+  width: 60px;
 }
 
-.App-link {
-  color: #61dafb;
-}
+/* responsive */
+@media only screen and (max-width:600px){
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 }
