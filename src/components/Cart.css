@@ -1,0 +1,35 @@
+.cart__container{
+    width: 100%;
+}
+.cart__list{
+    min-height: 40vh;
+    width: 80%;
+    margin: 0 auto;
+}
+.cart__card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    border-bottom: 1px solid gray;
+    padding: 5px 10px;
+}
+.cart__card img{
+    width: 150px;
+    height: 150px;
+}
+
+.empty__cart h2{
+    width: 100%;
+    min-height: 40vh;
+    text-align: center;
+    color: red;
+    margin-top: 15%;
+}
+
+.checkout__container {
+    width: 30%;
+    padding: 20px 25px;
+    border: 1px solid green;
+    margin: 0 auto;
+}

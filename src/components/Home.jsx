@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { baseUrl } from "../baseUrl";
 import axios from "axios";
 import Slider from "./Slider";
 
@@ -16,7 +17,7 @@ const Home = () => {
   const fetchProducts = async () => {
     setLoading(true);
     await axios
-      .get("https://fakestoreapi.com/products")
+      .get(`${baseUrl}/api/product`)
       .then((response) => {
         console.log(response);
         let temp = [];

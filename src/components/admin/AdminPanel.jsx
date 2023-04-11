@@ -15,7 +15,7 @@ const AdminPanel = () => {
         <li>
           <button
             className="btn btn-primary"
-            onClick={() => setComp(<Dashboard />)}
+            onClicks={() => setComp(<Dashboard />)}
           >
             Dashboard <FaAngleRight />
           </button>

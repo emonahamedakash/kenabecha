@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Loader from "./Loader";
 import ProductCard from "./ProductCard";
+import { baseUrl } from "../baseUrl";
 const Category = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -18,7 +19,7 @@ const Category = () => {
   const fetchProducts = async () => {
     setLoading(true);
     await axios
-      .get("https://fakestoreapi.com/products")
+      .get(`${baseUrl}/api/product`)
       .then((response) => {
         console.log(response);
         let temp = [];
@@ -44,7 +45,9 @@ const Category = () => {
       ) : (
         <div className="row justify-content-center product__list mt-3">
           {products
-            .filter((each) => each.category === name)
+            .filter(
+              (each) => each.category?.toLowerCase() === name.toLowerCase()
+            )
             .map((product, i) => {
               return (
                 <ProductCard

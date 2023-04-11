@@ -5,7 +5,7 @@
 .adminPanel ul {
     list-style-type: none;
     margin-top: 5px;
-    flex: 20%;
+    flex: 10%;
 }
 .adminPanel ul button{
     border-radius: 0;
@@ -21,16 +21,28 @@
 }
 
 /* Product part */
-.adminProductContainer{
 
-}
 .adminProductContainer .upperPart{
     display: flex;
     justify-content: space-between;
     padding: 5px;
 }
-.adminProductContainer .bottomPart{
+
+/*Add Product modal*/
+
+.add__product__form>div{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
 }
+.add__product__form>div>label{
+    flex-grow: 1;
+    flex-basis: 15%;
+}
+.add__product__form>div>input{
+    flex:auto
+}
+
 .adminProductContainer .bottomPart table{
     border-collapse: collapse;
 }
@@ -55,4 +67,33 @@
     overflow: hidden;
     max-height: 3.6em;
     line-height: 1.8em; */
+}
+
+
+/*Edit Product Page*/
+
+.edit__product__container h2{
+    text-align: center;
+}
+/* .edit__product__container .wrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+} */
+.edit__product__container form{
+    width: 80%;
+    margin: 0 auto;
+}
+.edit__product__container .form__group{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+.edit__product__container .form__group> label{
+    flex-grow: 1;
+    flex-basis: 30%;
+}
+.edit__product__container .form__group> input{
+    flex-basis: 70%;
+    padding: 5px;
 }

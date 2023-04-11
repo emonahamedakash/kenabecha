@@ -38,6 +38,7 @@
 }
 .product__details__image{
   width: 500px;
+  height: 500px;
 }
 .product__details .rating{
   font-size: 20px;
@@ -84,6 +85,18 @@
 }
 .footer img{
   width: 60px;
+}
+/* Product Card */
+.card__container{
+  padding: 0 !important;
+}
+.card__body{
+  border: none;
+  outline: none;
+  background: transparent;
+}
+.card__body:hover{
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 }
 
 /* responsive */

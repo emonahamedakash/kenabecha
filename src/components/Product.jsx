@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import { FaStar } from "react-icons/fa";
 import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
@@ -20,7 +24,7 @@ const Product = () => {
 
   const fetchProducts = async () => {
     await axios
-      .get("https://fakestoreapi.com/products")
+      .get("http://localhost:5000/api/product")
       .then((response) => {
         console.log(response);
         let temp = [];
@@ -33,13 +37,30 @@ const Product = () => {
         console.log(err);
       });
   };
+
+  //Cart
+
+  let cart = JSON.parse(localStorage.getItem("cartData"));
+
+  const handleCart = () => {
+    const newCart = [...cart, product];
+
+    localStorage.setItem("cartData", JSON.stringify(newCart));
+    toast("Added to Cart✅");
+    console.log(cart);
+  };
+
   const navigate = useNavigate();
   console.log(product);
   return (
     <div className="container">
       <div className="product__details">
         <img
-          src={product.image}
+          src={
+            product.image
+              ? product.image
+              : "https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg"
+          }
           alt="product"
           className="product__details__image"
         />
@@ -47,10 +68,12 @@ const Product = () => {
           <h3>{product.title}</h3>
           <h4>Price: ${product.price}</h4>
           <p className="rating">
-            <FaStar /> : {product.rating.rate}
+            <FaStar /> : {product.rating ? product.rating : "No Rating yet"}
           </p>
-          <p>{product.description}</p>
-          <button className="btn btn-outline-danger">Add to Cart</button>
+          <p>{product.desc}</p>
+          <button className="btn btn-outline-danger" onClick={handleCart}>
+            Add to Cart
+          </button>
         </div>
       </div>
       <h2 className="product__list__title">Related Products</h2>
@@ -77,6 +100,18 @@ const Product = () => {
             }
           })}
       </div>
+      <ToastContainer
+        position="top-center"
+        autoClose={1500}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
