@@ -1,0 +1,9 @@
+h2, h3{
+    text-align: center;
+}
+.verifyForm{
+    width: 300px;
+    min-height: 60vh;
+    margin: 50px auto;
+    padding: 20px 50px;
+}

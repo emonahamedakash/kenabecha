@@ -11,6 +11,7 @@ import Product from "./components/Product";
 import Login from "./components/Login";
 import Profile from "./components/Profile";
 import Registration from "./components/Registration";
+import VerifyUserEmail from "./components/VerifyUserEmail";
 //Admin Panel
 import AdminPanel from "./components/admin/AdminPanel";
 import Editproduct from "./components/admin/Editproduct";
@@ -29,6 +30,9 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/verifyuseremail" element={<VerifyUserEmail />} />
+
+          //Admin Panel Routes
           <Route path="/adminpanel" element={<AdminPanel />} />
           <Route path="/editproduct" element={<Editproduct />} />
         </Routes>

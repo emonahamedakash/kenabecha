@@ -1,5 +1,5 @@
 import React, { useState, Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
 
@@ -16,6 +16,8 @@ export function Registration() {
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     const form = event.currentTarget;
@@ -37,6 +39,9 @@ export function Registration() {
       })
       .then((res) => {
         console.log(res);
+        navigate("/verifyuseremail",{
+          state:{formData}
+        })
       })
       .catch((err) => {
         console.log(err);
