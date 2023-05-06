@@ -75,11 +75,6 @@
 .edit__product__container h2{
     text-align: center;
 }
-/* .edit__product__container .wrapper{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-} */
 .edit__product__container form{
     width: 80%;
     margin: 0 auto;
@@ -96,4 +91,22 @@
 .edit__product__container .form__group> input{
     flex-basis: 70%;
     padding: 5px;
+}
+/* User Page */
+.adminUserContainer{
+
+
+}
+.adminUserContainer table{
+    border-collapse: collapse;
+    width: 90%;
+}
+.adminUserContainer table tr:nth-child(even){background-color: #f2f2f2;}
+.adminUserContainer table tr:hover{background-color: #ddd;}
+.adminUserContainer td{
+    border-bottom: 1px solid gray;
+    padding: 10px;
+}
+.adminUserContainer table thead{
+    font-weight: bold;
 }
