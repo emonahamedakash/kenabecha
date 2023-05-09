@@ -17,7 +17,7 @@ const Navigationbar = () => {
     "Fashion",
   ]);
 
-  const cart = JSON.parse(localStorage.getItem("cartData"));
+  // const cart = JSON.parse(localStorage.getItem("cartData"));
 
   let userId = sessionStorage.getItem("user");
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useCart } from "react-use-cart";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -10,10 +11,18 @@ import Slider from "./Slider";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ProductCard from "./ProductCard";
+
+
+
 const Product = () => {
   const { state } = useLocation();
   const { product } = state;
   const [products, setProducts] = useState([]);
+
+
+  //Cart package start
+  const { addItem } = useCart();
+  //Cart package end
 
   useEffect(() => {
     fetchProducts().then();
@@ -40,14 +49,15 @@ const Product = () => {
 
   //Cart
 
-  let cart = JSON.parse(localStorage.getItem("cartData"));
+  // let cart = JSON.parse(localStorage.getItem("cartData"));
 
-  const handleCart = () => {
-    const newCart = [...cart, product];
+  const handleCart = (id) => {
+    addItem(id,1);
+    // const newCart = [...cart, product];
 
-    localStorage.setItem("cartData", JSON.stringify(newCart));
-    toast("Added to Cart✅");
-    console.log(cart);
+    // localStorage.setItem("cartData", JSON.stringify(newCart));
+    // toast("Added to Cart✅");
+    // console.log(cart);
   };
 
   const navigate = useNavigate();
@@ -71,7 +81,7 @@ const Product = () => {
             <FaStar /> : {product.rating ? product.rating : "No Rating yet"}
           </p>
           <p>{product.desc}</p>
-          <button className="btn btn-outline-danger" onClick={handleCart}>
+          <button className="btn btn-outline-danger" onClick={()=>handleCart(product._id)}>
             Add to Cart
           </button>
         </div>

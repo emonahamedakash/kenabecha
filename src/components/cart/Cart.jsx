@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Cart.css";
 
-import { useCart } from "react-use-cart";
+import { CartContext } from "./CartContext";
+import {REMOVE_CART_ITEM} from "./action-types"
+
+// import { useCart } from "react-use-cart";
 
 
 import { ToastContainer, toast } from "react-toastify";
@@ -9,10 +12,35 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
   // const [cartData, setCartData] = useState(cart);
-  const [totalPrice, setTotalPrice] = useState();
+  const { cartItem, dispatch } = useContext(CartContext);
 
-  const { items } = useCart();
-  console.log(items)
+const [totalPrice, setTotalPrice] = useState(0);
+const [totalCartItems, setTotalCartItems] = useState(0);
+
+const calculateTotal = () => {
+  let totalAmount = 0;
+  let totalCart = 0;
+  cartItem.map((item) => {
+    totalAmount = totalAmount + item.count * parseFloat(item.productPrice);
+    totalCart = totalCart + item.count;
+  });
+  setTotalPrice(totalAmount);
+  setTotalCartItems(totalCart);
+};
+
+useEffect(() => {
+  calculateTotal();
+}, [cartItem]);
+const removeFromCart = (item) => {
+  item.isAddedtoCart = false;
+  item.count = 0;
+  dispatch({
+    type: REMOVE_CART_ITEM,
+    payload: item,
+  });
+};
+
+
 
   // const total = () => {
   //   let total = 0;
@@ -45,11 +73,10 @@ const Cart = () => {
         Cart
       </h2>
       <div className="cart__list">
-        {items.length !== 0 ? (
-          items.map((each, index) => {
+        {cartItem.length !== 0 ? (
+          cartItem.map((each, index) => {
             return (
               <div key={index} className="row mb-2">
-                {/* <div key={index} className="cart__card"> */}
                 <div className="col-md-1">{index + 1}</div>
                 <div className="col-md-2">
                   <img
@@ -75,6 +102,7 @@ const Cart = () => {
                 </div>
                 <button
                   className="btn btn-outline-danger btn-sm col-md-1"
+                  onClick={()=> removeFromCart(each)}
                   // onClick={() => {
                   //   handleRemove(each._id);
                   // }}

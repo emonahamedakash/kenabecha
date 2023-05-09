@@ -29,13 +29,12 @@ const Orders = () => {
   };
 
 
-  const handleDelete= async (id)=>{
+  const handleOrder= async (id)=>{
     alert("Confirm Delivery?");
   console.log(id); 
   
-      alert("User Deleted successfully");
       const response = await axios.post(
-        `${baseUrl}/api/order/${id}`
+        `${baseUrl}/api/delivery/${id}`
       );
       console.log(JSON.stringify(response));
   }
@@ -77,7 +76,7 @@ const Orders = () => {
                         :
                         <button
                         className="btn btn-outline-danger btn-sm"
-                        onClick={()=>handleDelete(order._id)}
+                        onClick={()=>handleOrder(order._id)}
                       >
                         Pending
                       </button>
