@@ -31,6 +31,7 @@ const calculateTotal = () => {
 useEffect(() => {
   calculateTotal();
 }, [cartItem]);
+
 const removeFromCart = (item) => {
   item.isAddedtoCart = false;
   item.count = 0;

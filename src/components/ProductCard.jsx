@@ -20,7 +20,7 @@ const ProductCard = (props) => {
         <Card.Body>
           <Card.Text className="product__title">{props.title}...</Card.Text>
           <Card.Text className="product__price">
-            Price: ${props.price}/=
+            Price: ৳ {props.price}/=
           </Card.Text>
           {/* <Button variant="success" className="w-100" onClick={props.btnFunction}>
           See Details

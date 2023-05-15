@@ -29,6 +29,7 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [image, setImage] = useState("");
+  const [imgUrls, setImgUrls] = useState([])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -65,16 +66,32 @@ const Products = () => {
       }
     );
     console.log(JSON.stringify(response));
+
+    const productAddedId = response.data._id
+    
+    const formData = new FormData()
+    formData.append('image', image)
+    
+    axios.post(`${baseUrl}/api/add-product-image/${productAddedId}`, 
+      formData,
+      {
+        headers: {
+          'Content-Type': "multipart/form-data"
+        }
+      }
+    ).then(res => console.log(res))
+    .catch(err => console.log(err.message))
   };
 
   const fetchProducts = async () => {
+    let temp = [];
     setLoading(true);
     await axios
       .get(`${baseUrl}/api/product`)
       .then((response) => {
-        console.log(response);
-        let temp = [];
-        response.data.forEach((res) => {
+        console.log({response});
+        
+        response.data.forEach( (res) => {
           temp.push(res);
         });
         setProducts(temp);
@@ -85,9 +102,26 @@ const Products = () => {
       .finally(() => {
         setLoading(false);
       });
+
+      try {
+        for(let each of temp){
+          const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+            responseType: "blob"
+          })
+
+          const url = URL.createObjectURL(res.data)
+          setImgUrls(prev => ({
+            ...prev,
+            [each.id]: url
+          }))
+        }
+      } catch (err) {
+        console.log(err.message)
+      }
   };
 
   const navigate = useNavigate();
+  console.log("proucts:" ,products);
 
   return (
     <div className="adminProductContainer">
@@ -189,9 +223,8 @@ const Products = () => {
                 <input
                   type="file"
                   accept=" .jpg, .png"
-                  // onChange={handleChange}
                   onChange={(e) => {
-                    setImage(e.target.files);
+                    setImage(e.target.files[0]);
                   }}
                   name="image"
                 />
@@ -228,7 +261,7 @@ const Products = () => {
                 <tr key={i}>
                   <td className="productId">{i + 1}</td>
                   <td>
-                    <img src={product.image} alt="" />
+                    <img src={imgUrls[product.id]} alt="" />
                   </td>
                   <td className="productTitle">{product.title}</td>
                   <td>{product.price}</td>

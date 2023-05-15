@@ -1,6 +1,7 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Recaptcha from "react-recaptcha";
 
 //All component and pages
 import Navbar from "./components/Navbar";
@@ -16,6 +17,7 @@ import VerifyUserEmail from "./components/VerifyUserEmail";
 import AdminPanel from "./components/admin/AdminPanel";
 import Editproduct from "./components/admin/Editproduct";
 import Cart from "./components/Cart";
+import ReturnPolicy from "./components/ReturnPolicy";
 
 const App = () => {
   return (
@@ -31,6 +33,9 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/verifyuseremail" element={<VerifyUserEmail />} />
+
+          //Extra Routes
+          <Route path="/return-policy" element={<ReturnPolicy/>}/>
 
           //Admin Panel Routes
           <Route path="/adminpanel" element={<AdminPanel />} />

@@ -1,21 +1,41 @@
-import react, { useState } from "react";
+import react, { useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
+import Recaptcha from "react-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha"
+
 import "./Login.css";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+
+
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //recaptcha
+  // const captchaRef = useRef(null);
+  // const token = captchaRef.current.getValue();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // const token = captchaRef.current.getValue();
+    // captchaRef.current.reset();
+
+    const formData = {
+      email, 
+      password,
+      // token
+    }
     const response = await axios
-      .get(`${baseUrl}/api/login?email=${email}&password=${password}`)
+    .post(`${baseUrl}/api/login`, JSON.stringify(formData, undefined, 5), {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: false,
+    })
       .then((response) => {
         if (response.status === 200) {
           alert("Logged in Successfully...✅");
@@ -65,7 +85,12 @@ function Login() {
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
           <Form.Check type="checkbox" label="Check me out" />
         </Form.Group>
-        <Button variant="warning" type="submit">
+        {/* <ReCAPTCHA
+        sitekey="6LcKSgUmAAAAAJfPNjod2KVwEyD6NkaI4XpOBp-_"
+        ref={captchaRef}
+        /> */}
+        <Button variant="warning" type="submit"
+        >
           Submit
         </Button>
         <br />
