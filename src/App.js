@@ -16,7 +16,7 @@ import VerifyUserEmail from "./components/VerifyUserEmail";
 //Admin Panel
 import AdminPanel from "./components/admin/AdminPanel";
 import Editproduct from "./components/admin/Editproduct";
-import Cart from "./components/Cart";
+import Cart from "./components/cart/Cart";
 import ReturnPolicy from "./components/ReturnPolicy";
 
 const App = () => {

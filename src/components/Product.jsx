@@ -18,6 +18,8 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import ProductCard from "./ProductCard";
 import { baseUrl } from "../baseUrl";
+//cart
+import ShopContext from "./cart/ShopContext";
 
 
 
@@ -28,13 +30,7 @@ const Product = () => {
   const [imgUrls, setImgUrls] = useState([])
 
 
-  // const { state, dispatch: ctxDispatch } = useContext(Store);
-// const {cart} = state;
 
-
-  //Cart package start
-  // const { addItem } = useCart();
-  //Cart package end
 
   useEffect(() => {
     fetchProducts().then();
@@ -80,35 +76,8 @@ const Product = () => {
   };
 
   //Cart
-
-  // let cart = JSON.parse(localStorage.getItem("cartData"));
-
-  const handleCart = (item) => {
-
-    //  const existItem = cart.cartItems.find((x) => x._id === product._id);
-    //   const quantity = existItem ? existItem.quantity + 1 : 1; 
-
-
-      // ctxDispatch({
-      //     type: 'CART_ADD_ITEM',
-      //     payload: { ...product, item },
-      // });
-
-    // addItem(id,1);
+  const context = useContext(ShopContext);
  
-      // item.isAddedtoCart = false;
-      // item.count = 0;
-      // dispatch({
-      //   type: ADD_CART_ITEM,
-      //   payload: item,
-      // });
- 
-    // const newCart = [...cart, product];
-
-    // localStorage.setItem("cartData", JSON.stringify(newCart));
-    // toast("Added to Cart✅");
-    // console.log(cart);
-  };
 
   const navigate = useNavigate();
   return (
@@ -151,7 +120,9 @@ const Product = () => {
             <FaStar /> : {product.rating ? product.rating : "No Rating yet"}
           </p>
           <p>{product.desc}</p>
-          <button className="btn btn-outline-danger">
+          <button className="btn btn-outline-danger"
+          onClick={context.addProductToCart.bind(this, product)}
+          >
             Add to Cart
           </button>
         </div>
