@@ -28,7 +28,7 @@ const Products = () => {
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(null);
   const [imgUrls, setImgUrls] = useState([])
 
   const handleClose = () => setShow(false);
@@ -61,26 +61,26 @@ const Products = () => {
       `${baseUrl}/api/product`,
       JSON.stringify(formValues, undefined, 5),
       {
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "multipart/form-data" },
         withCredentials: false,
       }
     );
     console.log(JSON.stringify(response));
 
-    const productAddedId = response.data._id
+    // const productAddedId = response.data._id
     
-    const formData = new FormData()
-    formData.append('image', image)
+    // const formData = new FormData()
+    // formData.append('image', image)
     
-    axios.post(`${baseUrl}/api/add-product-image/${productAddedId}`, 
-      formData,
-      {
-        headers: {
-          'Content-Type': "multipart/form-data"
-        }
-      }
-    ).then(res => console.log(res))
-    .catch(err => console.log(err.message))
+    // axios.post(`${baseUrl}/api/add-product-image/${productAddedId}`, 
+    //   formData,
+    //   {
+    //     headers: {
+    //       'Content-Type': "multipart/form-data"
+    //     }
+    //   }
+    // ).then(res => console.log(res))
+    // .catch(err => console.log(err.message))
   };
 
   const fetchProducts = async () => {
@@ -140,15 +140,7 @@ const Products = () => {
               className="add__product__form"
               encType="multipart/form-data"
             >
-              {/* <div className="form__group">
-                <label>ID: </label>
-                <input
-                  type="text"
-                  value={formValues.id}
-                  onChange={handleChange}
-                  name="id"
-                />
-              </div> */}
+            
               <div className="form__group">
                 <label>Title: </label>
                 <input
