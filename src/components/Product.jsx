@@ -27,7 +27,6 @@ const Product = () => {
   const { state } = useLocation();
   const { product } = state;
   const [products, setProducts] = useState([]);
-  const [imgUrls, setImgUrls] = useState([])
 
 
 
@@ -55,21 +54,21 @@ const Product = () => {
         console.log(err);
       });
 
-      try {
-        for(let each of temp){
-          const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
-            responseType: "blob"
-          })
+      // try {
+      //   for(let each of temp){
+      //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+      //       responseType: "blob"
+      //     })
 
-          const url = URL.createObjectURL(res.data)
-          setImgUrls(prev => ({
-            ...prev,
-            [each.id]: url
-          }))
-        }
-      } catch (err) {
-        console.log(err.message)
-      }
+      //     const url = URL.createObjectURL(res.data)
+      //     setImgUrls(prev => ({
+      //       ...prev,
+      //       [each.id]: url
+      //     }))
+      //   }
+      // } catch (err) {
+      //   console.log(err.message)
+      // }
 
   
 
@@ -84,21 +83,21 @@ const Product = () => {
     <div className="container">
       <div className="product__details">
         <div className="product_details_image"
-          style={{width:"50%"}}
+          style={{width:"800px",height: "800px"}}
         >
         <ReactImageMagnify {...{
     smallImage: {
         alt: 'Wristwatch by Ted Baker London',
         isFluidWidth: true,
-        src: imgUrls[product.id]
-        ? imgUrls[product.id]
+        src: product.image
+        ? product.image
         : "https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg"
     },
     largeImage: {
-        src: imgUrls[product.id]
-        ? imgUrls[product.id]
+        src: product.image 
+        ? product.image
         : "https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg",
-        width: 800,
+        width: 1200,
         height: 800
     }
 }} />
@@ -138,7 +137,7 @@ const Product = () => {
               return (
                 <ProductCard
                   key={i}
-                  image={imgUrls[p.id]}
+                  image={p.image}
                   title={p.title}
                   price={p.price}
                   btnFunction={() =>

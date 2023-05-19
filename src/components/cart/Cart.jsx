@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
+import {useNavigate} from "react-router-dom";
 import "./Cart.css";
 
 import ShopContext from "./ShopContext";
@@ -7,15 +8,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const Cart = () => {
-
   const context = useContext(ShopContext);
+  const cartData= context.cart;
 
   useEffect(() => {
     console.log(context);
   }, []);
 
 
-
+const navigate = useNavigate();
   return (
     <div className="cart__container">
       <h2
@@ -85,7 +86,13 @@ const Cart = () => {
           </tbody>
         </table>
         <hr />
-        <button className="btn btn-primary w-100">Order now</button>
+        <button className="btn btn-primary w-100"
+        onClick={() =>
+          navigate("/checkout", {
+            state: { cartData },
+          })
+        }
+        >Order now</button>
       </div>
       <ToastContainer
         position="top-center"

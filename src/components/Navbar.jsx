@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
@@ -9,6 +9,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 import logo from "../assets/logo3.png";
 import { baseUrl } from "../baseUrl";
+import ShopContext from "./cart/ShopContext"
 
 const Navigationbar = () => {
   const [categories, setCategories] = useState([
@@ -17,7 +18,8 @@ const Navigationbar = () => {
     "Fashion",
   ]);
 
-  // const cart = JSON.parse(localStorage.getItem("cartData"));
+  const context = useContext(ShopContext);
+  const cartData= context.cart;
 
   let userId = sessionStorage.getItem("user");
 
@@ -66,8 +68,8 @@ const Navigationbar = () => {
                 </Nav.Link>
               )}
               <Nav.Link href="#deets" as={Link} to="/cart">
-                {/* <FaShoppingCart /> {cart.length} */}
-                Cart
+                <FaShoppingCart /> {cartData.length}
+                {/* Cart */}
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>

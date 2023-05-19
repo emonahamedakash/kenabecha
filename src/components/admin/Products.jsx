@@ -29,7 +29,6 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [image, setImage] = useState(null);
-  const [imgUrls, setImgUrls] = useState([])
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -55,15 +54,26 @@ const Products = () => {
     };
     console.log(formValues);
 
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("price", price);
+    formData.append("desc", desc);
+    formData.append("category", category);
+    formData.append("brand", brand);
+    formData.append("image", image);
+
     handleClose();
     alert("Product added successfully");
     const response = await axios.post(
       `${baseUrl}/api/product`,
-      JSON.stringify(formValues, undefined, 5),
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: false,
-      }
+      // JSON.stringify(formValues, undefined, 5),
+      formData,
+        {headers: { "Content-Type": "multipart/form-data" }},
+      // {
+      //   headers: { "Content-Type": "multipart/form-data" },
+      //   withCredentials: false,
+      // }
     );
     console.log(JSON.stringify(response));
 
@@ -103,21 +113,21 @@ const Products = () => {
         setLoading(false);
       });
 
-      try {
-        for(let each of temp){
-          const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
-            responseType: "blob"
-          })
+      // try {
+      //   for(let each of temp){
+      //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+      //       responseType: "blob"
+      //     })
 
-          const url = URL.createObjectURL(res.data)
-          setImgUrls(prev => ({
-            ...prev,
-            [each.id]: url
-          }))
-        }
-      } catch (err) {
-        console.log(err.message)
-      }
+      //     const url = URL.createObjectURL(res.data)
+      //     setImgUrls(prev => ({
+      //       ...prev,
+      //       [each.id]: url
+      //     }))
+      //   }
+      // } catch (err) {
+      //   console.log(err.message)
+      // }
   };
 
   const navigate = useNavigate();
@@ -214,11 +224,11 @@ const Products = () => {
                 <label>Upload Image </label>
                 <input
                   type="file"
+                  name="image"
                   accept=" .jpg, .png"
                   onChange={(e) => {
                     setImage(e.target.files[0]);
                   }}
-                  name="image"
                 />
               </div>
               <input type="submit" className="btn btn-primary" />
@@ -253,7 +263,7 @@ const Products = () => {
                 <tr key={i}>
                   <td className="productId">{i + 1}</td>
                   <td>
-                    <img src={imgUrls[product.id]} alt="" />
+                    <img src={product.image} alt={product.title} />
                   </td>
                   <td className="productTitle">{product.title}</td>
                   <td>{product.price}</td>

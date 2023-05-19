@@ -31,17 +31,19 @@ function Login() {
       password,
       // token
     }
+    console.log(formData)
     const response = await axios
-    .post(`${baseUrl}/api/login`, JSON.stringify(formData, undefined, 5), {
+    .post(`${baseUrl}/api/login`, formData, {
       headers: { "Content-Type": "application/json" },
       withCredentials: false,
     })
       .then((response) => {
+        
         if (response.status === 200) {
           alert("Logged in Successfully...✅");
           console.log(response.data.message);
-          sessionStorage.setItem("user", response.data.message._id);
-          navigate("/");
+          sessionStorage.setItem("user", JSON.stringify(response.data.message));
+          navigate("/profile");
         }
       })
       .catch((error) => {

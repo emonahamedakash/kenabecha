@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Recaptcha from "react-recaptcha";
 
 //All component and pages
 import Navbar from "./components/Navbar";
@@ -17,6 +16,7 @@ import VerifyUserEmail from "./components/VerifyUserEmail";
 import AdminPanel from "./components/admin/AdminPanel";
 import Editproduct from "./components/admin/Editproduct";
 import Cart from "./components/cart/Cart";
+import Checkout from "./components/cart/Checkout";
 import ReturnPolicy from "./components/ReturnPolicy";
 
 const App = () => {
@@ -29,6 +29,7 @@ const App = () => {
           <Route path="/category/:name" element={<Category />} />
           <Route path="/product" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
+          <Route path="/checkout" element={<Checkout/>}/>
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/registration" element={<Registration />} />

@@ -16,6 +16,7 @@ const ProductCard = (props) => {
               : "https://static.vecteezy.com/system/resources/previews/005/337/799/non_2x/icon-image-not-found-free-vector.jpg"
           }
           className="product__image"
+          alt={props.title}
         />
         <Card.Body>
           <Card.Text className="product__title">{props.title}...</Card.Text>

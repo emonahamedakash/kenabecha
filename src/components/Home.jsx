@@ -9,7 +9,7 @@ import ProductCard from "./ProductCard";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [imgUrls, setImgUrls] = useState([])
+  const [image, setImage] = useState("")
 
   useEffect(() => {
     fetchProducts().then();
@@ -35,21 +35,21 @@ const Home = () => {
         setLoading(false);
       });
 
-      try {
-        for(let each of temp){
-          const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
-            responseType: "blob"
-          })
+      // try {
+      //   for(let each of temp){
+      //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+      //       responseType: "blob"
+      //     })
 
-          const url = URL.createObjectURL(res.data)
-          setImgUrls(prev => ({
-            ...prev,
-            [each.id]: url
-          }))
-        }
-      } catch (err) {
-        console.log(err.message)
-      }
+      //     const url = URL.createObjectURL(res.data)
+      //     setImgUrls(prev => ({
+      //       ...prev,
+      //       [each.id]: url
+      //     }))
+      //   }
+      // } catch (err) {
+      //   console.log(err.message)
+      // }
   };
 
   const navigate = useNavigate();
@@ -69,7 +69,7 @@ const Home = () => {
                 return (
                   <ProductCard
                     key={i}
-                    image={imgUrls[product.id]}
+                    image={product.image}
                     title={product.title}
                     price={product.price}
                     btnFunction={() =>
@@ -83,7 +83,7 @@ const Home = () => {
             </div>
           </div>
           <div className="electronics">
-            <h2 className="product__list__title">ELectronics</h2>
+            <h2 className="product__list__title">Electronics</h2>
             <div className="row justify-content-center product__list mt-3">
               {products
                 .filter((each) => each.category === "electronics")
