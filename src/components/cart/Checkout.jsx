@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom'
 import {baseUrl} from "../../baseUrl";
 import axios from "axios";
 import ShopContext from './ShopContext';
+import "./Checkout.css";
 
 
 const Checkout = () => {
@@ -10,7 +11,9 @@ const Checkout = () => {
     const [address, setAddress] = useState("Test");
     const context = useContext(ShopContext);
     const cartData= context.cart;
-    let userId = sessionStorage.getItem("user");
+    let user = JSON.parse(sessionStorage.getItem("user"));
+    console.log(user);
+    const userId = user._id;
     
   console.log(cartData);
     const submitOrder = async (e)=>{
@@ -22,13 +25,16 @@ const Checkout = () => {
     }
 
   return (
-    <div>
+    <div className='checkout__container'>
       <h2>Checkout Page</h2>
         <form>
             <label>Enter Receiver Address: </label><br />
             <input type='text' name="address" onChange={(e)=>setAddress(e.target.value)} /> <br />
             <label>Enter Receiver Phone Number: </label><br />
             <input type='text' name="phone" onChange={(e)=>setPhone(e.target.value)} />
+            <br />
+            <br />
+
             <button className='btn btn-primary' onClick={submitOrder}>Confirm Order</button>
         </form>
     </div>

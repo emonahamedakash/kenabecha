@@ -10,6 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Cart = () => {
   const context = useContext(ShopContext);
   const cartData= context.cart;
+  console.log(cartData)
 
   useEffect(() => {
     console.log(context);
@@ -81,7 +82,7 @@ const navigate = useNavigate();
           <tbody>
             <tr>
               <td>Total Price:</td>
-              {/* <td>{totalPrice}</td> */}
+              <td>{cartData[0]?.price}</td>
             </tr>
           </tbody>
         </table>
