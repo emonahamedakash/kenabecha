@@ -18,6 +18,7 @@ const Checkout = () => {
       axios.post(`${baseUrl}/api/order`, {cartData,phone, address, userId})
       .then((res)=>console.log("axios res: ", res))
       .catch((err)=>console.log(err))
+      alert("Order is submitted");
     }
 
   return (

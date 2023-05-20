@@ -7,36 +7,45 @@ const Editproduct = () => {
   const { state } = useLocation();
   const { product } = state;
   console.log(product);
+  const id = product._id;
+  const [newTitle, setNewTitle] = useState(product.title);
+  const [newPrice, setNewPrice] = useState(product.price);
+  const [newDesc, setNewDesc] = useState(product.desc);
+  const [newStock, setNewStock] = useState(product.stock);
 
-  const initialValues = {
-    id: product._id,
-    title: product.title,
-    price: product.price,
-    desc: product.desc,
-  };
+  // const initialValues = {
+  //   title: product.title,
+  //   price: product.price,
+  //   desc: product.desc,
+  //   stock: product.stock,
+  // };
 
-  const [formValues, setFormValues] = useState(initialValues);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-    // console.log(formValues);
-  };
+  // const [formValues, setFormValues] = useState(initialValues);
 
   const navigate = useNavigate();
 
   const handleUpdate = async (e) => {
-    e.preventDefault();
-    console.log(formValues);
+    e.preventDefault(); 
+    const formData = new FormData();
+
+    formData.append("id", id);
+    formData.append("title", newTitle);
+    formData.append("price", newPrice);
+    formData.append("desc", newDesc);
+    formData.append("stock", newStock);
+    // console.log(formValues);
     const response = await axios.put(
-      `${baseUrl}/api/product`,
-      JSON.stringify(formValues, undefined, 5),
-      {
+      `${baseUrl}/api/product/update`,
+      // JSON.stringify(formValues, undefined, 5),
+      // {id,newTitle, newPrice, newDesc, newStock},
+      formData,
+      { 
         headers: { "Content-Type": "application/json" },
         withCredentials: false,
       }
     );
-    console.log(JSON.stringify(response));
+    alert("Product Updated Successfully");
+    console.log(response);
   };
   const handleDelete = async () => {
     const d = await axios
@@ -54,14 +63,14 @@ const Editproduct = () => {
     <div className="edit__product__container">
       <h2>Edit Products</h2>
       <div className="wrapper">
-        <form onSubmit={handleUpdate}>
+        <form>
           <div className="form__group">
             <label>Product Title</label>
             <input
               type="text"
               defaultValue={product.title}
               name="title"
-              onChange={handleChange}
+              onChange={(e)=>setNewTitle(e.target.value)}
             />
           </div>
           <div className="form__group">
@@ -70,7 +79,16 @@ const Editproduct = () => {
               type="number"
               defaultValue={product.price}
               name="price"
-              onChange={handleChange}
+              onChange={(e)=>setNewPrice(e.target.value)}
+            />
+          </div>
+          <div className="form__group">
+            <label>Stock</label>
+            <input
+              type="number"
+              defaultValue={product.stock}
+              name="stock"
+              onChange={(e)=>setNewStock(e.target.value)}
             />
           </div>
           <div className="form__group">
@@ -79,12 +97,12 @@ const Editproduct = () => {
               type="text"
               defaultValue={product.desc}
               name="desc"
-              onChange={handleChange}
+              onChange={(e)=>setNewDesc(e.target.value)}
               rows={4}
               cols={74}
             />
           </div>
-          <button className="btn btn-primary btn-sm">Edit Now</button>
+          <button className="btn btn-primary btn-sm" onClick={(e)=>handleUpdate(e)}>Edit Now</button>
           <button className="btn btn-danger btn-sm" onClick={handleDelete}>
             Delete
           </button>

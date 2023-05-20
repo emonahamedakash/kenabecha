@@ -17,7 +17,7 @@ const AdminPanel = () => {
             className="btn btn-primary"
             onClick={() => setComp(<Dashboard />)}
           >
-            Dashboard <FaAngleRight />
+            Low Stock Notification <FaAngleRight />
           </button>
         </li>
         <li>

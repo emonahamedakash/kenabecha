@@ -28,6 +28,7 @@ const Products = () => {
   const [desc, setDesc] = useState("");
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
+  const [stock, setStock] = useState(1);
   const [image, setImage] = useState(null);
 
   const handleClose = () => setShow(false);
@@ -61,6 +62,7 @@ const Products = () => {
     formData.append("desc", desc);
     formData.append("category", category);
     formData.append("brand", brand);
+    formData.append("stock", stock);
     formData.append("image", image);
 
     handleClose();
@@ -221,6 +223,18 @@ const Products = () => {
                 />
               </div>
               <div className="form__group">
+                <label>Stock: </label>
+                <input
+                  type="number"
+                  // value={formValues.brand}
+                  // onChange={handleChange}
+                  onChange={(e) => {
+                    setStock(e.target.value);
+                  }}
+                  name="stock"
+                />
+              </div>
+              <div className="form__group">
                 <label>Upload Image </label>
                 <input
                   type="file"
@@ -269,7 +283,7 @@ const Products = () => {
                   <td>{product.price}</td>
                   <td>No Offer</td>
                   <td>67</td>
-                  <td>In stock</td>
+                  <td>{product.stock}</td>
                   <td>Active</td>
                   <td>10/08/2022</td>
 
