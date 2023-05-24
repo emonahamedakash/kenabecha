@@ -32,11 +32,18 @@ const Orders = () => {
   const handleOrder= async (id)=>{
     alert("Confirm Delivery?");
   console.log(id); 
+  const formData = new FormData();
+  formData.append("id", id);
   
-      const response = await axios.post(
-        `${baseUrl}/api/delivery/${id}`
-      );
-      console.log(JSON.stringify(response));
+      await axios.put(
+        `${baseUrl}/api/delivery`,
+        formData,
+        {headers: { "Content-Type": "application/json" }}
+      ).then((response)=>{
+        console.log(response);
+      }).catch((error)=>{
+        console.log(error);
+      })
   }
 
   return (
@@ -71,8 +78,9 @@ const Orders = () => {
                         isDelivered?
                         <p 
                         className="btn btn-outline-success btn-sm"
-                        Delivered
-                        ></p>
+                        >
+                          Delivered
+                        </p>
                         :
                         <button
                         className="btn btn-outline-danger btn-sm"

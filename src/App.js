@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 //All component and pages
 import Navbar from "./components/Navbar";
+import Search from "./components/Search";
 import Home from "./components/Home";
 import Category from "./components/Category.jsx";
 import Footer from "./components/Footer";
@@ -29,15 +30,14 @@ const App = () => {
           <Route path="/category/:name" element={<Category />} />
           <Route path="/product" element={<Product />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout/>}/>
+          <Route path="/checkout" element={<Checkout />} />
           <Route path="/login" element={<Login />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/registration" element={<Registration />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/verifyuseremail" element={<VerifyUserEmail />} />
-
           //Extra Routes
-          <Route path="/return-policy" element={<ReturnPolicy/>}/>
-
+          <Route path="/return-policy" element={<ReturnPolicy />} />
           //Admin Panel Routes
           <Route path="/adminpanel" element={<AdminPanel />} />
           <Route path="/editproduct" element={<Editproduct />} />

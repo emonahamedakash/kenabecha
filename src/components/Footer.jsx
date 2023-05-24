@@ -18,23 +18,27 @@ const Footer = () => {
       <div className="footer">
         <div>
           <ul>
-            <li><a href="/return-policy" target="_blank">Return policy</a></li>
-            <li>Search our store</li>
-            <li>Blog</li>
+            <li>Important Links</li>
+            <li>
+              <a href="/return-policy" target="_blank">
+                Return policy
+              </a>
+            </li>
+            {/* <li>Blog</li>
             <li>Contact us</li>
-            <li>About us</li>
+            <li>About us</li> */}
           </ul>
         </div>
         <div>
           <ul>
+            <li>Social Media Links</li>
             <li>
-             
               <FaFacebook />
               <a href="https://www.facebook.com/profile.php?id=100092515607020&mibextid=ZbWKwL">
-              Facebook
+                Facebook
               </a>
             </li>
-            <li>
+            {/* <li>
               <FaTwitterSquare />
               Twitter
             </li>
@@ -42,8 +46,7 @@ const Footer = () => {
             <li>
               <FaYoutube />
               Youtube
-            </li>
-           
+            </li> */}
           </ul>
         </div>
         <div className="footer__images">
@@ -55,7 +58,12 @@ const Footer = () => {
         </div>
       </div>
 
-      <p>© All Rights Reserved by <a href="http://nub.ac.bd" target="_blank">Northern University Bangladesh</a></p>
+      <p>
+        © All Rights Reserved by{" "}
+        <a href="http://nub.ac.bd" target="_blank">
+          Northern University Bangladesh
+        </a>
+      </p>
     </div>
   );
 };

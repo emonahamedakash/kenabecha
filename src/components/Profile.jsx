@@ -1,18 +1,21 @@
 import React, { useState,useEffect } from "react";
 import "./Profile.css";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 import axios from "axios";
 import { baseUrl } from "../baseUrl";
 
 const Profile = () => {
   const [view, setView] = useState(<Orders/>);
+ 
   return (
     <div className="profile__container">
       <ul>
-        <li onClick={() => setView(<Orders/>)} className="btn btn-primary">
+        <li onClick={() => setView(<Orders/>)} className="btn btn-primary btn-lg">
           Orders
         </li>
-        <li onClick={() => setView(<EditProfile/>)} className="btn btn-primary">
+        <li onClick={() => setView(<EditProfile/>)} className="btn btn-primary btn-lg">
           Edit Profile
         </li>
       </ul>
@@ -30,6 +33,15 @@ const EditProfile = () => {
 const Orders = () => {
   const [orders, setOrders] = useState([]);
 
+  const [currentData, setCurrentData] = useState("");
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = (e) => {
+    setCurrentData(e) 
+    setShow(true);
+  }
   console.log(orders);
   const user = JSON.parse(sessionStorage.getItem("user"));
 
@@ -54,6 +66,20 @@ const Orders = () => {
   };
   return <div>
     <h2>My Orders</h2>
+    <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{currentData}</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            Save Changes
+          </Button>
+        </Modal.Footer>
+      </Modal>
         <table>
           <thead>
             <tr>
@@ -63,6 +89,7 @@ const Orders = () => {
               <td>Address</td>
               <td>Phone</td>
               <td>Creation Date</td>
+              <td>Invoice</td>
             </tr>
           </thead>
           <tbody>
@@ -77,11 +104,11 @@ const Orders = () => {
                   <td>{address}</td>
                   <td>{phone}</td>
                   <td>{date}</td>
-
                   <td>
-                   
-
-                   
+                    <button className="btn btn-warning btn-sm" onClick={()=>{
+                      handleShow(order)
+                    
+                    }}>Invoice</button>
                   </td>
                 </tr>
               );

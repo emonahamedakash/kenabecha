@@ -5,11 +5,13 @@ import { Link, Outlet } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { FaShoppingCart, FaUserAlt } from "react-icons/fa";
 import logo from "../assets/logo3.png";
 import { baseUrl } from "../baseUrl";
-import ShopContext from "./cart/ShopContext"
+import ShopContext from "./cart/ShopContext";
 
 const Navigationbar = () => {
   const [categories, setCategories] = useState([
@@ -18,10 +20,14 @@ const Navigationbar = () => {
     "Fashion",
   ]);
 
+  const [searchText, setSearchText] = useState("");
+
   const context = useContext(ShopContext);
-  const cartData= context.cart;
+  const cartData = context.cart;
 
   let userId = sessionStorage.getItem("user");
+
+  const navigate = useNavigate();
 
   return (
     <div className="navigationBar">
@@ -57,6 +63,52 @@ const Navigationbar = () => {
                 <NavDropdown.Item href="#action/3.4">SEE ALL</NavDropdown.Item> */}
               </NavDropdown>
             </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                type="search"
+                placeholder="Search products"
+                className="me-2"
+                aria-label="Search"
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                }}
+                onSubmit={() => {
+                  navigate("search", {
+                    state: { searchText },
+                  });
+                }}
+              />
+              <Button
+                onClick={() => {
+                  navigate("search", {
+                    state: { searchText },
+                  });
+                }}
+                variant="success"
+              >
+                Search
+              </Button>
+            </Form>
+            {/* <form className="d-flex">
+              <inupt
+                type="text"
+                placeholder="Search product"
+                // className="me-2"
+                onChange={(e) => {
+                  setSearchText(e.target.value);
+                }}
+              />
+              <button
+                onClick={() => {
+                  navigate("search", {
+                    state: { searchText },
+                  });
+                }}
+                variant="outline-success"
+              >
+                Search
+              </button>
+            </form> */}
             <Nav>
               {userId ? (
                 <Nav.Link as={Link} to="/profile">

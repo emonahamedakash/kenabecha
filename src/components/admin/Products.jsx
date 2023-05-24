@@ -5,23 +5,12 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { baseUrl } from "../../baseUrl";
 import "./AdminPanel.css";
-import ProductCard from "../ProductCard";
 
 const Products = () => {
-  // const initialValues = {
-  //   title: "",
-  //   price: "",
-  //   desc: "",
-  //   category: "",
-  //   brand: "",
-  //   image: "",
-  // };
 
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
-
-  // const [formValues, setFormValues] = useState(initialValues);
 
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
@@ -33,18 +22,13 @@ const Products = () => {
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
   useEffect(() => {
     fetchProducts().then();
   }, []);
-  //validating form
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    // setFormValues({ ...formValues, [name]: value });
-    // console.log(formValues);
-  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     let formValues = {
       title,
       price,
@@ -69,13 +53,8 @@ const Products = () => {
     alert("Product added successfully");
     const response = await axios.post(
       `${baseUrl}/api/product`,
-      // JSON.stringify(formValues, undefined, 5),
       formData,
         {headers: { "Content-Type": "multipart/form-data" }},
-      // {
-      //   headers: { "Content-Type": "multipart/form-data" },
-      //   withCredentials: false,
-      // }
     );
     console.log(JSON.stringify(response));
 
@@ -152,7 +131,6 @@ const Products = () => {
               className="add__product__form"
               encType="multipart/form-data"
             >
-            
               <div className="form__group">
                 <label>Title: </label>
                 <input
@@ -160,8 +138,6 @@ const Products = () => {
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
-                  // value={formValues.title}
-                  // onChange={handleChange}
                   name="title"
                 />
               </div>
@@ -171,9 +147,7 @@ const Products = () => {
                   type="number"
                   onChange={(e) => {
                     setPrice(e.target.value);
-                  }}
-                  // value={formValues.price}
-                  // onChange={handleChange}
+                  }}              
                   name="price"
                 />
               </div>
@@ -184,8 +158,6 @@ const Products = () => {
                   onChange={(e) => {
                     setDesc(e.target.value);
                   }}
-                  // value={formValues.desc}
-                  // onChange={handleChange}
                   name="desc"
                 />
               </div>
@@ -196,8 +168,6 @@ const Products = () => {
                   onChange={(e) => {
                     setCategory(e.target.value);
                   }}
-                  // value={formValues.category}
-                  // onChange={handleChange}
                   name="category"
                 />
                 {/* <select
@@ -214,8 +184,6 @@ const Products = () => {
                 <label>Brand: </label>
                 <input
                   type="text"
-                  // value={formValues.brand}
-                  // onChange={handleChange}
                   onChange={(e) => {
                     setBrand(e.target.value);
                   }}
@@ -226,8 +194,6 @@ const Products = () => {
                 <label>Stock: </label>
                 <input
                   type="number"
-                  // value={formValues.brand}
-                  // onChange={handleChange}
                   onChange={(e) => {
                     setStock(e.target.value);
                   }}

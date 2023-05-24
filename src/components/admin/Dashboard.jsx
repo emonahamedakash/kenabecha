@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { baseUrl } from "../../baseUrl";
 
-const Dashboard = () => {
+const Lowstock = () => {
 
   const [lowStockProducts, setLowStockProducts] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchProducts().then();
@@ -35,18 +38,26 @@ const Dashboard = () => {
         <td>SN</td>
         <td>Product Title</td>
         <td>Price</td>
+        <td>In Stock</td>
         <td>Action</td>
       </tr>
     </thead>
     <tbody>
       {lowStockProducts.map((product, i) => {
-        const {title, price } = product;
+        const {title, price, stock } = product;
         return (
           <tr key={i}>
             <td className="productId">{i + 1}</td>
             <td className="productTitle">{title}</td>
             <td>{price}</td>
-            <td><button className="btn btn-warning btn-sm">Edit Now</button></td>
+            <td>{stock}</td>
+            <td><button className="btn btn-warning btn-sm"
+            onClick={() => {
+              navigate("/editproduct", {
+                state: { product: product },
+              });
+            }}
+            >Edit Now</button></td>
           </tr>
         );
       })}
@@ -59,4 +70,4 @@ const Dashboard = () => {
 </div>
 };
 
-export default Dashboard;
+export default Lowstock;
