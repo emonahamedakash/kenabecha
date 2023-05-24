@@ -50,17 +50,17 @@ const Search = () => {
           searchResults.map((result, i) => {
             const { image, title, price, rating, category } = result;
             return (
-              <div className="search__list__card" key={i}>
-                <div className="image__container">
+              <div className="search__list__card row" key={i}>
+                <div className="image__container col-2">
                   <img src={image} alt={title} />
                 </div>
-                <div className="product__details">
+                <div className="product__details col-8">
                   <h2>Title: {title}</h2>
                   <p>Price: {price}</p>
                   <p>Rating: {rating}</p>
                 </div>
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary col-2"
                   onClick={() =>
                     navigate("/product", {
                       state: { product: result },

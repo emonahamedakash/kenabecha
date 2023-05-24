@@ -63,7 +63,15 @@ const Navigationbar = () => {
                 <NavDropdown.Item href="#action/3.4">SEE ALL</NavDropdown.Item> */}
               </NavDropdown>
             </Nav>
-            <Form className="d-flex">
+            <Form
+              className="d-flex"
+              onSubmit={(e) => {
+                e.preventDefault();
+                navigate("/search", {
+                  state: { searchText },
+                });
+              }}
+            >
               <Form.Control
                 type="search"
                 placeholder="Search products"
@@ -72,20 +80,8 @@ const Navigationbar = () => {
                 onChange={(e) => {
                   setSearchText(e.target.value);
                 }}
-                onSubmit={() => {
-                  navigate("search", {
-                    state: { searchText },
-                  });
-                }}
               />
-              <Button
-                onClick={() => {
-                  navigate("search", {
-                    state: { searchText },
-                  });
-                }}
-                variant="success"
-              >
+              <Button type="submit" variant="success">
                 Search
               </Button>
             </Form>

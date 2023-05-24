@@ -28,3 +28,7 @@
 .search__list__card img {
   width: 50px;
 }
+.product__details {
+  display: flex;
+  justify-content: space-evenly;
+}
