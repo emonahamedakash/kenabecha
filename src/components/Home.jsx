@@ -9,7 +9,7 @@ import ProductCard from "./ProductCard";
 const Home = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState("")
+  const [image, setImage] = useState("");
 
   useEffect(() => {
     fetchProducts().then();
@@ -22,7 +22,7 @@ const Home = () => {
       .get(`${baseUrl}/api/product`)
       .then((response) => {
         console.log(response);
-        
+
         response.data.forEach((res) => {
           temp.push(res);
         });
@@ -35,21 +35,21 @@ const Home = () => {
         setLoading(false);
       });
 
-      // try {
-      //   for(let each of temp){
-      //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
-      //       responseType: "blob"
-      //     })
+    // try {
+    //   for(let each of temp){
+    //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+    //       responseType: "blob"
+    //     })
 
-      //     const url = URL.createObjectURL(res.data)
-      //     setImgUrls(prev => ({
-      //       ...prev,
-      //       [each.id]: url
-      //     }))
-      //   }
-      // } catch (err) {
-      //   console.log(err.message)
-      // }
+    //     const url = URL.createObjectURL(res.data)
+    //     setImgUrls(prev => ({
+    //       ...prev,
+    //       [each.id]: url
+    //     }))
+    //   }
+    // } catch (err) {
+    //   console.log(err.message)
+    // }
   };
 
   const navigate = useNavigate();
@@ -72,6 +72,7 @@ const Home = () => {
                     image={product.image}
                     title={product.title}
                     price={product.price}
+                    discount={product.discount}
                     btnFunction={() =>
                       navigate("product", {
                         state: { product },

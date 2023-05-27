@@ -7,7 +7,6 @@ import { baseUrl } from "../../baseUrl";
 import "./AdminPanel.css";
 
 const Products = () => {
-
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
@@ -18,6 +17,7 @@ const Products = () => {
   const [category, setCategory] = useState("");
   const [brand, setBrand] = useState("");
   const [stock, setStock] = useState(1);
+  const [discount, setDiscount] = useState(1);
   const [image, setImage] = useState(null);
 
   const handleClose = () => setShow(false);
@@ -29,15 +29,6 @@ const Products = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    let formValues = {
-      title,
-      price,
-      desc,
-      category,
-      brand,
-      image,
-    };
-    console.log(formValues);
 
     const formData = new FormData();
 
@@ -47,23 +38,22 @@ const Products = () => {
     formData.append("category", category);
     formData.append("brand", brand);
     formData.append("stock", stock);
+    formData.append("discount", discount);
     formData.append("image", image);
 
     handleClose();
     alert("Product added successfully");
-    const response = await axios.post(
-      `${baseUrl}/api/product`,
-      formData,
-        {headers: { "Content-Type": "multipart/form-data" }},
-    );
+    const response = await axios.post(`${baseUrl}/api/product`, formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     console.log(JSON.stringify(response));
 
     // const productAddedId = response.data._id
-    
+
     // const formData = new FormData()
     // formData.append('image', image)
-    
-    // axios.post(`${baseUrl}/api/add-product-image/${productAddedId}`, 
+
+    // axios.post(`${baseUrl}/api/add-product-image/${productAddedId}`,
     //   formData,
     //   {
     //     headers: {
@@ -80,9 +70,9 @@ const Products = () => {
     await axios
       .get(`${baseUrl}/api/product`)
       .then((response) => {
-        console.log({response});
-        
-        response.data.forEach( (res) => {
+        console.log({ response });
+
+        response.data.forEach((res) => {
           temp.push(res);
         });
         setProducts(temp);
@@ -94,25 +84,25 @@ const Products = () => {
         setLoading(false);
       });
 
-      // try {
-      //   for(let each of temp){
-      //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
-      //       responseType: "blob"
-      //     })
+    // try {
+    //   for(let each of temp){
+    //     const res = await axios.get(`${baseUrl}/api/fetch-product-image/${each._id}`, {
+    //       responseType: "blob"
+    //     })
 
-      //     const url = URL.createObjectURL(res.data)
-      //     setImgUrls(prev => ({
-      //       ...prev,
-      //       [each.id]: url
-      //     }))
-      //   }
-      // } catch (err) {
-      //   console.log(err.message)
-      // }
+    //     const url = URL.createObjectURL(res.data)
+    //     setImgUrls(prev => ({
+    //       ...prev,
+    //       [each.id]: url
+    //     }))
+    //   }
+    // } catch (err) {
+    //   console.log(err.message)
+    // }
   };
 
   const navigate = useNavigate();
-  console.log("proucts:" ,products);
+  console.log("proucts:", products);
 
   return (
     <div className="adminProductContainer">
@@ -147,7 +137,7 @@ const Products = () => {
                   type="number"
                   onChange={(e) => {
                     setPrice(e.target.value);
-                  }}              
+                  }}
                   name="price"
                 />
               </div>
@@ -201,6 +191,16 @@ const Products = () => {
                 />
               </div>
               <div className="form__group">
+                <label>Discount(%): </label>
+                <input
+                  type="number"
+                  onChange={(e) => {
+                    setDiscount(e.target.value);
+                  }}
+                  name="discount"
+                />
+              </div>
+              <div className="form__group">
                 <label>Upload Image </label>
                 <input
                   type="file"
@@ -247,7 +247,7 @@ const Products = () => {
                   </td>
                   <td className="productTitle">{product.title}</td>
                   <td>{product.price}</td>
-                  <td>No Offer</td>
+                  <td>{product.discount}%</td>
                   <td>67</td>
                   <td>{product.stock}</td>
                   <td>Active</td>

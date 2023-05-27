@@ -1,10 +1,11 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 
 const ProductCard = (props) => {
-  const navigate = useNavigate();
+  console.log("Discount Price: ", props.discount);
+  console.log("Main Price: ", props.price);
+  let discountPrice = (props.discount / 100) * props.price;
+  console.log(discountPrice);
   return (
     <Card style={{ width: "15rem" }} className="col-sm-3 card__container">
       <button onClick={props.btnFunction} className="card__body">
@@ -20,8 +21,12 @@ const ProductCard = (props) => {
         />
         <Card.Body>
           <Card.Text className="product__title">{props.title}...</Card.Text>
-          <Card.Text className="product__price">
-            Price: ৳ {props.price}/=
+          <Card.Text className="product__price fw-bold">
+            Offer Price: ৳
+            {discountPrice ? props.price - discountPrice : props.price}/=
+          </Card.Text>
+          <Card.Text className="product__price text-secondary fw-light">
+            Regular price: ৳ <del>{props.price}/=</del>
           </Card.Text>
           {/* <Button variant="success" className="w-100" onClick={props.btnFunction}>
           See Details

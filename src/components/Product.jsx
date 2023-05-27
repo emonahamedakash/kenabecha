@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import "./Product.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import ReactImageMagnify from "react-image-magnify";
 import { ToastContainer, toast } from "react-toastify";
@@ -13,18 +14,26 @@ import ShopContext from "./cart/ShopContext";
 const Product = () => {
   const { state } = useLocation();
   const { product } = state;
-  const [products, setProducts] = useState([]);
+  const [relProducts, setRelProducts] = useState([]);
   console.log(product._id);
+  const productId = product.id;
 
   const [reviews, setReview] = useState([]);
 
+  const [user, setUser] = useState("Unknown");
+  const [newReviewText, setNewReviewText] = useState("");
+  const [newRating, setNewRating] = useState(0);
+
+  let discountPrice = (product.discount / 100) * product.price;
+
   useEffect(() => {
-    fetchProducts().then();
+    fetchRelProducts().then();
     fetchReviews().then();
-  }, []);
+    // window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, [product, reviews]);
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  });
+  }, [product]);
   const fetchReviews = async () => {
     let temp = [];
     await axios
@@ -40,8 +49,27 @@ const Product = () => {
         console.log(err);
       });
   };
+  const handleReviewSubmit = (e) => {
+    e.preventDefault();
+    const formData = {
+      productId,
+      newRating,
+      user,
+      newReviewText,
+    };
+    axios
+      .post(`${baseUrl}/api/review`, formData, {
+        headers: { "Content-Type": "application/json" },
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-  const fetchProducts = async () => {
+  const fetchRelProducts = async () => {
     let temp = [];
     await axios
       .get(`${baseUrl}/api/product`)
@@ -51,7 +79,7 @@ const Product = () => {
         response.data.forEach((res) => {
           temp.push(res);
         });
-        setProducts(temp);
+        setRelProducts(temp);
       })
       .catch((err) => {
         console.log(err);
@@ -115,10 +143,15 @@ const Product = () => {
           className="product__details__image"
         /> */}
         <div className="product__description col-6">
-          <h3>{product.title}</h3>
-          <h4>Price: ${product.price}</h4>
+          <h2 className="text-start text-success">{product.title}</h2>
+          <h5 className="text-danger">
+            Offer price: ${product.price - discountPrice}
+          </h5>
+          <p className="text-secondary text-6">
+            Regular price: <del>${product.price}</del>
+          </p>
           <p className="rating">
-            <FaStar /> : {product.rating ? product.rating : "No Rating yet"}
+            <FaStar /> : {reviews ? reviews.length() : "No Rating yet"}
           </p>
           <p>{product.desc}</p>
           <button
@@ -136,9 +169,9 @@ const Product = () => {
             const { rating, reviewText, user } = review;
 
             return (
-              <div className="review__card">
+              <div className="review__card" key={i}>
                 <p>
-                  <b>{user}</b>
+                  Created by: <b>{user}</b>
                 </p>
                 <p>Rating: {rating}</p>
                 <p>Text: {reviewText}</p>
@@ -146,11 +179,29 @@ const Product = () => {
             );
           })}
         </div>
-        <form action="" className="new__review"></form>
+        <form onSubmit={(e) => handleReviewSubmit(e)} className="new__review">
+          <label>Enter Your Review:</label>
+          <input
+            type="text"
+            name="newReviewText"
+            onChange={(e) => setNewReviewText(e.target.value)}
+          />
+          <br />
+          <label>Enter Your Rating:</label>
+          <input
+            type="number"
+            name="newRating"
+            onChange={(e) => setNewRating(e.target.value)}
+          />
+          <br />
+          <button type="submit" className="btn btn-primary">
+            Submit Review
+          </button>
+        </form>
       </div>
       <h2 className="product__list__title">Related Products</h2>
       <div className="row justify-content-center product__list mt-3">
-        {products
+        {relProducts
           .filter((each) => each.category === product.category)
           .map((p, i) => {
             if (i > 3) {
